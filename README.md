@@ -68,6 +68,39 @@ This part is not necessary for you to read, only for self-learning...
 
 5. Dockerfiles are text documents that contain all of the necessary steps for building an image from the command line.
 
+### Kubernetes:
+1. Computing is trending from:
+Metal PC -> VM -> Containers
+
+2. Container packaging is only 5% of the problem. The other parts are:
+* App configuration
+* Service Discovery
+* Managing updates
+* Monitoring
+The platform to manage all these is kubernetes.
+
+3. The core of kubernetes is pods. Pods represent a logical application. Pods represent and hold a collection of one or more containers. Generally, if you have multiple containers with a hard dependency on each other, they would be packaged together inside of a single pod.
+
+4. Pods also have volumes. Volumes are just data divs that live as long as the pod lives and can be used by any of the containers in that pod. The containers inside the same pod can communicate with each other, and they also share the attached volumes. Pods also share a network namespace, which means the pod has one IP per pod.
+
+5. Pods are allocated a private IP address by default and cannot be reached outside of the cluster.
+
+6. Monitoring and Health Checks:
+Sometimes a container on a pod can be up and running but the application inside of the container might be malfunctioning. Kubernetes has built-in support to make sure that your application is running correctly with user implemented application health and readiness checks.
+
+* Readiness probes indicate when a pod is ready to serve traffic. If a readiness check fails then the container will be marked as not ready and will be removed from any load balancers.
+
+* Liveness probes indicate a container is alive. If a liveness probe fails several times, then the container will be restarted. 
+
+7. Secrets and Configmaps: Many apps require configuration settings in secret such as TLS certs to run in a production environment. In kubernetes, there are Configmaps and Secrets to take care of these problems. They are similar except that Configmaps don’t have to be sensitive data. They can use environment variables and they can tell downstream pods that configuration is changed along with a pod or restart itself if necessary. We can start up a pod that uses a secret. The secret is mounted onto the pod as a volume. Once that the volume is there, we can take the contents of it and expose it on the file system to wherever our pods would go to mount it. Then the pod starts to come online.
+
+8. Services:
+Instead of relying on pod IP addresses which change, kubernetes provide services as a stable endpoint for pods. The pods that the service exposes are based on a set of labels. If pods have the correct labels, they are automatically picked up and exposed by our services. The level of access the service provides to a set of pods depends on the type of the services. Currently, there are three types:
+* Cluster IP, which is internal only.
+* Node port, which gives each node an external IP that’s accessible.
+* Load balancing, which adds a load balancer from the cloud provider which forced traffic from the service to nodes within it.
+
+
 
 
 
