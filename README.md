@@ -56,11 +56,18 @@ Computing resource allocation can be configured in `./env/spark-worker.sh`.
 This part is not necessary for you to read, only for self-learning...
 
 ### docker:
-1. When creating your own image, try to reduce the size of the image. 
+1. Docker is an open source tool that makes it easier to create, distribute, and run the application. Containers provide the benefits of a virtual machine like isolation between applications running on the same machine.
+
+2. When creating your own image, try to reduce the size of the image. 
 > If you need a JDK, consider basing your image on the official openjdk image, 
 > rather than starting with a generic ubuntu image and installing openjdk as part of the Dockerfile (from docker official website).
 
-2. ...
+3. Container Image is a packaging format that includes not only your application but all your dependencies or runtime information required to run it.
+
+4. Container & VM: Two separate virtual machines running on one machine actually run two whole different OSes. Multiple containers run the same OS since containers are logical construct we use within the OS. That makes it so light-weight.
+
+5. Dockerfiles are text documents that contain all of the necessary steps for building an image from the command line.
+
 
 
 
